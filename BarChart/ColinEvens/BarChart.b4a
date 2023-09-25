@@ -1,0 +1,75 @@
+﻿Build1=Default,b4a.BarChart
+File1=Main.bal
+FileGroup1=Default Group
+Group=Default Group
+Library1=core
+Library2=xchart
+Library3=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="28"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.DarkTheme)~\n~'End of default text.~\n~
+Module1=Starter
+Module2=xChart
+NumberOfFiles=1
+NumberOfLibraries=3
+NumberOfModules=2
+Version=10.5
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: BarChart
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	Private N(100) As String
+	Private V(100) As Double
+End Sub
+
+Sub Globals
+	Private xui As XUI
+	Private BarChart1 As xChart
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Main")
+	SetData
+	FillBarChart(0, 48)
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Private Sub FillBarChart(BeginIndex As Int, EndIndex As Int)
+	BarChart1.ClearData
+	BarChart1.AddBar("Consumption", xui.Color_Red)
+	For i = BeginIndex To EndIndex
+		BarChart1.AddBarPointData(N(i), V(i))
+	Next
+	BarChart1.DrawChart
+End Sub
+
+Private Sub SetData
+	Private i, t As Int
+	
+	t = - 1
+	For i = 0 To 99 Step 2
+		t =  t + 1
+		N(i) = t & ":" & "00"
+		V(i) = Rnd(10, 200) / 100
+		N(i + 1) = t & ":" & "30"
+		V(i + 1) = Rnd(10, 200) / 100
+	Next
+End Sub
+
